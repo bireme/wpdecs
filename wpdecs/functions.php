@@ -8,6 +8,8 @@ $QUALIFIER_LIST = array(
 
 function get_descriptors_by_words($words, $lang = ""){
 
+    $words = trim($words);
+
     global $QUALIFIER_LIST;
     $definition_len = 10000000;
 
@@ -30,7 +32,9 @@ function get_descriptors_by_words($words, $lang = ""){
         $qualifiers = array();
         foreach($node->record_list->record->allowable_qualifier_list->allowable_qualifier as $qualifier) {
             // print_r($qualifier);
-            $qualifiers[(string) $qualifier] = $QUALIFIER_LIST[(string) $qualifier];
+            if(in_array((string) $qualifier, $QUALIFIER_LIST)) {
+                $qualifiers[(string) $qualifier] = $QUALIFIER_LIST[(string) $qualifier];
+            }
         }
 
         // description size

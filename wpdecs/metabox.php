@@ -19,7 +19,7 @@
 			e.preventDefault();
 
 			var lang = $("#wpdecs_lang").val();
-			var word = $("#wpdecs_word").val();
+			var word = $("#wpdecs_word").val().trim();
 			
 			if(word != "") {
 
@@ -214,7 +214,7 @@
 	<p><?php _e('Search and select words.', 'wpdecs'); ?></p>
 	
 	<?php $wpdecs_default_language = get_option('wpdecs_default_language'); ?>
-	<input type="text" name="word" id="wpdecs_word" class="code" size="40" value="dengue">
+	<input type="text" name="word" id="wpdecs_word" class="code" size="40" value="">
 	<select name="lang" id="wpdecs_lang" class="wpdecs_lang">
 		<option <?php if($wpdecs_default_language == "p") print "selected='selected'"; ?> value="p"> <?php _e('Portuguese', 'wpdecs'); ?></option>
         <option <?php if($wpdecs_default_language == "i") print "selected='selected'"; ?> value="i"> <?php _e('English', 'wpdecs'); ?></option>
