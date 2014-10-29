@@ -40,8 +40,19 @@
 						
 						var content = data.descriptors[item];
 
+						var is_leaf = false;
+						if(content.is_leaf) {
+							is_leaf = true;
+						}
+						
 						$("#result_example .select_term").attr('onclick', "javascript: select_term('"+content.tree_id+"', '"+item+"');");
-						$("#result_example_title").html(item);
+
+						if(is_leaf) {
+							var leaf_html = " <img src='<?= plugin_dir_url(); ?>/wpdecs/img/leaf.png' alt='Este termo é uma folha da árvore.'>"
+							$("#result_example_title").html(item + leaf_html);
+						} else {
+							$("#result_example_title").html(item);
+						}
 
 						if(content.synonym == false) {
 							$("#result_example_definition").html(content.definition);
@@ -56,6 +67,7 @@
 						while(mfn.length != 6) {
 							mfn = "0" + mfn;
 						}						
+
 
 						// external link
 						$("#result_example_link a").attr('href', link_externo+mfn);

@@ -31,11 +31,12 @@ function get_descriptors_by_words($words, $lang = ""){
 
         $qualifiers = array();
         foreach($node->record_list->record->allowable_qualifier_list->allowable_qualifier as $qualifier) {
-            // print_r($qualifier);
-            if(in_array((string) $qualifier, $QUALIFIER_LIST)) {
+            if(array_key_exists((string) $qualifier, $QUALIFIER_LIST)) {
                 $qualifiers[(string) $qualifier] = $QUALIFIER_LIST[(string) $qualifier];
             }
         }
+
+        // print_r($qualifiers);
 
         // description size
         if(strlen($definition) >= $definition_len) {
@@ -51,9 +52,10 @@ function get_descriptors_by_words($words, $lang = ""){
         // mfn
         $mfn = (int) $node->record_list->record['mfn'];
 
-        // if not leaf, dont add in descriptors array
+        $leaf = true;
+        // send the leaf information to de descriptor
         if($node->tree->self->term_list->term['leaf'] != "true") {
-            continue;
+            $leaf = false;
         }
         
         // tree id
@@ -64,6 +66,7 @@ function get_descriptors_by_words($words, $lang = ""){
             'lang' => $langs,
             'synonym' => false,
             'mfn' => $mfn,
+            'is_leaf' => $leaf,
         ); 
 
         foreach($node->record_list->record->synonym_list->synonym as $synonym) {
