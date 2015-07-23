@@ -131,7 +131,7 @@ function get_descriptors_from_decs( $queryUrl ){
 
 function get_the_wpdecs_terms($id=false) {
 
-    $post = get_post();
+    global $post;
     $post_id = $post->ID;
     if($id)
         $post_id = $id;

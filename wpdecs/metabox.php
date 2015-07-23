@@ -258,14 +258,14 @@
 								<input type="hidden" name="wpdecs_terms[<?= $id ?>][term]" value="<?= $term['term'] ?>">
 								
 								<!-- qualifiers -->
-								<?php foreach($term['qualifier'] as $ql) : ?>
+								<?php if(isset($term['qualifier'])) { foreach($term['qualifier'] as $ql) : ?>
 									<input type="hidden" name="wpdecs_terms[<?= $id ?>][qualifier][]" value="<?= $ql ?>">
-								<?php endforeach; ?>
+								<?php endforeach; } ?>
 
 								<!-- langs -->
-								<?php foreach($term['lang'] as $key => $value) : ?>
+								<?php if(isset($term['qualifier'])) { foreach($term['lang'] as $key => $value) : ?>
 									<input type="hidden" name="wpdecs_terms[<?= $id ?>][lang][<?= $key ?>]" value="<?= $value ?>">
-								<?php endforeach; ?>
+								<?php endforeach; } ?>
 								
 
 							</span>
