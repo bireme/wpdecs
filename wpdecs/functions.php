@@ -22,6 +22,8 @@ function get_descriptors_by_words($words, $lang = ""){
     $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang ); 
     $xmlTree = $xmlFile->xpath("/decsvmx/decsws_response");
 
+    // print 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang;
+
     $descriptors = array();
     foreach($xmlTree as $node){
 

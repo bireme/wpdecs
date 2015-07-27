@@ -40,12 +40,18 @@
 						
 						var content = data.descriptors[item];
 
+						// mfn needs to be six digits to construct external link
+						var mfn = content.mfn.toString();
+						while(mfn.length != 6) {
+							mfn = "0" + mfn;
+						}
+
 						var is_leaf = false;
 						if(content.is_leaf) {
 							is_leaf = true;
 						}
 						
-						$("#result_example .select_term").attr('onclick', "javascript: select_term('"+content.tree_id+"', '"+item+"');");
+						$("#result_example .select_term").attr('onclick', "javascript: select_term('"+content.tree_id+"', '"+item+"', "+mfn+");");
 
 						if(is_leaf) {
 							var leaf_html = " <img src='<?= plugin_dir_url(); ?>/wpdecs/img/leaf.png' alt='Este termo é uma folha da árvore.'>"
@@ -62,12 +68,6 @@
 							$("#result_example_title").html('<span class="synonym">'+$("#result_example_title").html()+synonym+'</span>');
 						}
 
-						// mfn needs to be six digits to construct external link
-						var mfn = content.mfn.toString();
-						while(mfn.length != 6) {
-							mfn = "0" + mfn;
-						}						
-
 
 						// external link
 						$("#result_example_link a").attr('href', link_externo+mfn);
@@ -82,7 +82,7 @@
 
 						var ql_html = "<tr id='ql_"+count+"' style='display:none'><td class='qualifiers' colspan='5'>"+ql+"</td></tr>";
 						// append result
-						$("#search_results").append("<tr class='row-result' data-id='"+content.tree_id+"|"+item+"'>"+$("#result_example").html()+"</tr>"+ql_html);
+						$("#search_results").append("<tr class='row-result' data-mfn='"+mfn+"' data-id='"+content.tree_id+"|"+item+"'>"+$("#result_example").html()+"</tr>"+ql_html);
 
 						count += 1;
 					}
@@ -106,7 +106,7 @@
 	var total_selected = <?php print count($wpdecs_terms); ?>;
 
 	// botao de selecionar termo
-	function select_term(id, term) {
+	function select_term(id, term, mfn) {
 	
 		id_composto = id +"|"+term;
 
@@ -160,6 +160,7 @@
 		});
 
 		el += '<input type="hidden" name="wpdecs_terms['+id_composto+'][term]" value="'+term+'">';
+		el += '<input type="hidden" name="wpdecs_terms['+id_composto+'][mfn]" value="'+mfn+'">';
 		el += '</span>';
 		
 		$("#selected_terms").append(el);
