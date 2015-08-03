@@ -54,7 +54,7 @@
 						$("#result_example .select_term").attr('onclick', "javascript: select_term('"+content.tree_id+"', '"+item+"', "+mfn+");");
 
 						if(is_leaf) {
-							var leaf_html = " <img src='<?= plugin_dir_url(); ?>/wpdecs/img/leaf.png' alt='Este termo é uma folha da árvore.'>"
+							var leaf_html = " <img src='<?= plugin_dir_url(__FILE__); ?>/img/leaf.png' alt='Este termo é uma folha da árvore.'>"
 							$("#result_example_title").html(item + leaf_html);
 						} else {
 							$("#result_example_title").html(item);
