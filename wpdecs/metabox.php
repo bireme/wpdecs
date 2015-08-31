@@ -25,7 +25,7 @@
 
 				// ajax request
 				$.get(webservice_url, {lang: lang, words: word}, function( data ){
-					alert(JSON.stringify(data, null, 4));
+
 					// limpando a tabela
 					$("#search_results tbody").empty();
 					$("#search_results tbody").hide();
