@@ -3,7 +3,7 @@
 
 <script>
 	var webservice_url = "<?php print WPDECS_URL; ?>/webservice.php";
-	
+
 	$ = jQuery;
 	$(function(){
 
@@ -20,24 +20,24 @@
 
 			var lang = $("#wpdecs_lang").val();
 			var word = $("#wpdecs_word").val().trim();
-			
+
 			if(word != "") {
 
 				// ajax request
 				$.get(webservice_url, {lang: lang, words: word}, function( data ){
-					
+					alert(JSON.stringify(data, null, 4));
 					// limpando a tabela
 					$("#search_results tbody").empty();
 					$("#search_results tbody").hide();
 
 					var link_externo = "http://decs.bvs.br/cgi-bin/wxis1660.exe/?IsisScript=../cgi-bin/decsserver/decsserver.xis&path_database=/home/decs2014/www/bases/&path_cgibin=/home/decs2014/www/cgi-bin/decsserver/&path_data=/decsserver/&temp_dir=/tmp&debug=&clock=&client=&search_language=p&interface_language=p&navigation_bar=Y&format=LONG&show_tree_number=F&list_size=200&from=1&count=5&total=7&no_frame=T&task=hierarchic&previous_task=list_terms&previous_page=list_terms&mfn_tree=";
-					
+
 					var count=0;
 					for(item in data.descriptors) {
 
 						$("#result_example_title").empty();
 						$("#result_example_definition").empty();
-						
+
 						var content = data.descriptors[item];
 
 						// mfn needs to be six digits to construct external link
@@ -50,7 +50,7 @@
 						if(content.is_leaf) {
 							is_leaf = true;
 						}
-						
+
 						$("#result_example .select_term").attr('onclick', "javascript: select_term('"+content.tree_id+"', '"+item+"', "+mfn+");");
 
 						if(is_leaf) {
@@ -71,12 +71,12 @@
 
 						// external link
 						$("#result_example_link a").attr('href', link_externo+mfn);
-						
+
 						// qualifiers
 						$("#see_qualifiers").attr('onclick', 'javascript: show_qualifiers("ql_'+count+'");');
 						var ql = "<ul>";
 						for(qualifier in content.qualifiers) {
-							ql += '<li class="qualifier"><input type="checkbox" data-term-id="'+content.tree_id+"|"+item+'" value="'+qualifier+'"> ' + content.qualifiers[qualifier] + '</li>';
+							ql += '<li class="qualifier"><input type="checkbox" id="' + content.qid[qualifier] + '" data-term-id="'+content.tree_id+"|"+item+'" value="'+qualifier+'"> ' + content.qualifiers[qualifier] + '</li>';
 						}
 						ql += "</ul>";
 
@@ -96,18 +96,18 @@
 				});
 			}
 		});
-		
+
 		$('.show_ql').click(function(e){
 			e.preventDefault();
 			alert();
 		});
 	});
-		
+
 	var total_selected = <?php print count($wpdecs_terms); ?>;
 
 	// botao de selecionar termo
 	function select_term(id, term, mfn) {
-	
+
 		id_composto = id +"|"+term;
 
 		// if exist, remove and replace
@@ -126,13 +126,14 @@
 		qualifiers_print = [];
 		var qualifiers = $('input[data-term-id="'+id_composto+'"]:checked');
 		qualifiers.each(function(){
-			
+
+			el += '<input type="hidden" name="wpdecs_terms['+id_composto+'][qid]['+$(this).val()+']" value="'+$(this).attr('id')+'">';
 			el += '<input type="hidden" name="wpdecs_terms['+id_composto+'][qualifier][]" value="'+$(this).val()+'">';
 
 			// push qualifier in list that be printed
 			qualifiers_print.push($(this).val());
 		});
-		
+
 		if(qualifiers_print.length < 1) {
 			qualifiers_print = "";
 		} else {
@@ -141,13 +142,13 @@
 
 		// starting item
 		el += '<a id="wpdecs_selected_'+total_selected+'" class="ntdelbutton" onclick="javascript: remove_selected(\'wpdecs_selected_'+total_selected+'\');">x</a> '+term + " " + qualifiers_print;
-		
+
 		// lang
 		$.ajax({
 			url: webservice_url,
 			async : false,
 			context: document.body,
-		    data: { 
+		    data: {
 		        treeid: id
 		    },
 		    cache: false,
@@ -162,7 +163,7 @@
 		el += '<input type="hidden" name="wpdecs_terms['+id_composto+'][term]" value="'+term+'">';
 		el += '<input type="hidden" name="wpdecs_terms['+id_composto+'][mfn]" value="'+mfn+'">';
 		el += '</span>';
-		
+
 		$("#selected_terms").append(el);
 		total_selected += 1;
 	}
@@ -225,7 +226,7 @@
 
 <div class="wrap">
 	<p><?php _e('Search and select words.', 'wpdecs'); ?></p>
-	
+
 	<?php $wpdecs_default_language = get_option('wpdecs_default_language'); ?>
 	<input type="text" name="word" id="wpdecs_word" class="code" size="40" value="">
 	<select name="lang" id="wpdecs_lang" class="wpdecs_lang">
@@ -234,10 +235,10 @@
         <option <?php if($wpdecs_default_language == "e") print "selected='selected'"; ?> value="e"> <?php _e('Spanish', 'wpdecs'); ?></option>
 	</select>
 	<input type="button" class="button" id="wpdecs_submit" value="<?php _e('Search', 'wpdecs'); ?>">
-	
+
 
 	<div class="words">
-		
+
 		<table id="search_selecteds">
 			<thead>
 				<tr>
@@ -249,15 +250,15 @@
 					<td><div class="tagchecklist" id="selected_terms">
 						<?php $count = 0; foreach($wpdecs_terms as $id => $term): ?>
 							<span>
-								
-								<a id="wpdecs_selected_<?= $count ?>" class="ntdelbutton" onclick="javascript: remove_selected('wpdecs_selected_<?= $count ?>');">x</a> <?= $term['term'] ?> 
+
+								<a id="wpdecs_selected_<?= $count ?>" class="ntdelbutton" onclick="javascript: remove_selected('wpdecs_selected_<?= $count ?>');">x</a> <?= $term['term'] ?>
 								<?php if(isset($term['qualifier'])) {
 									// printing qualifiers, if exist
 									print "(" . join("/", $term['qualifier']) . ")";
 								}?>
-								
+
 								<input type="hidden" name="wpdecs_terms[<?= $id ?>][term]" value="<?= $term['term'] ?>">
-								
+
 								<!-- qualifiers -->
 								<?php if(isset($term['qualifier'])) { foreach($term['qualifier'] as $ql) : ?>
 									<input type="hidden" name="wpdecs_terms[<?= $id ?>][qualifier][]" value="<?= $ql ?>">
@@ -267,7 +268,7 @@
 								<?php if(isset($term['qualifier'])) { foreach($term['lang'] as $key => $value) : ?>
 									<input type="hidden" name="wpdecs_terms[<?= $id ?>][lang][<?= $key ?>]" value="<?= $value ?>">
 								<?php endforeach; } ?>
-								
+
 
 							</span>
 						<?php $count++; endforeach; ?>
@@ -277,34 +278,34 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<table id="search_results">
 			<thead>
 				<tr>
 					<th width="1%"></th>
 					<th width="1%"></th>
-					<th width="25%"><?php _e('Term', 'wpdecs'); ?></th>				
+					<th width="25%"><?php _e('Term', 'wpdecs'); ?></th>
 					<th width="60%"><?php _e('Description', 'wpdecs'); ?></th>
 					<th width="10%"><?php _e('Link', 'wpdecs'); ?></th>
 				</tr>
-				
+
 				<tr style="display:none" id="result_example">
-					
+
 					<td><input type="button" class="select_term" value="+" onclick="javascript: select_term(this);"></td>
 					<td><input type="button" id="see_qualifiers" value="Q"></td>
 					<td id="result_example_title"></td>
-					
+
 					<td id="result_example_definition" class='definition'></td>
 					<td id="result_example_link">
 						<a href="javascript:void(0);" target="_blank" title="<?php _e("External Link", "wpdecs"); ?>"><?php _e("External Link", "wpdecs"); ?></a>
 					</td>
 				</tr>
-				
+
 			</thead>
 			<tbody>
 				<tr><td colspan="5"><i><?php _e("No results"); ?></i></td></tr>
 			</tbody>
 		</table>
-		
+
 	</div>
 </div>

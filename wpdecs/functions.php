@@ -19,7 +19,7 @@ function get_descriptors_by_words($words, $lang = ""){
         $QUALIFIER_LIST = $QUALIFIER_LIST[$lang];
     }
 
-    $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang ); 
+    $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang );
     $xmlTree = $xmlFile->xpath("/decsvmx/decsws_response");
 
     // print 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang;
@@ -31,9 +31,11 @@ function get_descriptors_by_words($words, $lang = ""){
         if((string) $node->record_list->record->definition->occ['n'])
             $definition = (string) $node->record_list->record->definition->occ['n'];
 
+        $qid = array();
         $qualifiers = array();
         foreach($node->record_list->record->allowable_qualifier_list->allowable_qualifier as $qualifier) {
             if(array_key_exists((string) $qualifier, $QUALIFIER_LIST)) {
+                $qid[(string) $qualifier] = (int) $qualifier['id'];
                 $qualifiers[(string) $qualifier] = $QUALIFIER_LIST[(string) $qualifier];
             }
         }
@@ -59,22 +61,24 @@ function get_descriptors_by_words($words, $lang = ""){
         if($node->tree->self->term_list->term['leaf'] != "true") {
             $leaf = false;
         }
-        
+
         // tree id
         $descriptors[(string) $node->tree->self->term_list->term] = array(
-            'tree_id' => (string) $node['tree_id'], 
+            'tree_id' => (string) $node['tree_id'],
             'definition' => $definition,
+            'qid' => $qid,
             'qualifiers' => $qualifiers,
             'lang' => $langs,
             'synonym' => false,
             'mfn' => $mfn,
             'is_leaf' => $leaf,
-        ); 
+        );
 
         foreach($node->record_list->record->synonym_list->synonym as $synonym) {
             $descriptors[ (string) $synonym  ] = array(
                 'tree_id' => (string) $node['tree_id'],
                 'definition' => $definition,
+                'qid' => $qid,
                 'qualifiers' => $qualifiers,
                 'lang' => $langs,
                 'synonym' => true,
@@ -89,7 +93,7 @@ function get_descriptors_by_words($words, $lang = ""){
 
 function get_descriptors_lang_by_tree_id($id) {
 
-    $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?tree_id=' . urlencode($id) ); 
+    $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?tree_id=' . urlencode($id) );
     $xmlTree = $xmlFile->xpath("/decsvmx/decsws_response/record_list");
 
     $result = array();
@@ -104,7 +108,7 @@ function get_descriptors_lang_by_tree_id($id) {
 }
 
 function get_descriptors_from_decs( $queryUrl ){
-  
+
     // use the curl as default
     if ( function_exists('curl_version') ){
 
@@ -117,7 +121,7 @@ function get_descriptors_from_decs( $queryUrl ){
         curl_close($ch);
 
     $xmlFile = new SimpleXMLElement($file_contents);
-    
+
     // if dont have the curl use the simplexml_load_file to load the decs xml
     } elseif ( function_exists('simplexml_load_file') == "Enabled" ){
 
@@ -137,7 +141,7 @@ function get_the_wpdecs_terms($id=false) {
     $post_id = $post->ID;
     if($id)
         $post_id = $id;
-    
+
 
     $wpdecs_terms = get_post_meta($post_id, 'wpdecs_terms', true);
     if($wpdecs_terms) {
@@ -153,9 +157,9 @@ function the_wpdecs_terms() {
     print '<h2>' . __('DeCS Terms') . '</h2>';
     print '<ul>';
 
-    
+
     foreach(get_the_wpdecs_terms() as $term) {
-        
+
         // print "<pre>";
         // var_dump($term);
 
@@ -164,13 +168,13 @@ function the_wpdecs_terms() {
             foreach($term['qualifier'] as $ql) {
                 $print_ql .= $ql . '/';
             }
-            
+
             $print_ql = trim($print_ql, "/");
             $print_ql = "($print_ql)";
         }
-        
+
         print "<li>${term['term']} $print_ql</li>";
-        
+
     }
 
     print '</ul>';
