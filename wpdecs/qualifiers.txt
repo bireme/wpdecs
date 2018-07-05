@@ -1,0 +1,80 @@
+/administration & dosage@/administración & dosificación@/administração & dosagem@AD
+/isolation & purification@/aislamiento & purificación@/isolamento & purificação@IP
+/analysis@/análisis@/análise@AN
+/analogs & derivatives@/análogos & derivados@/análogos & derivados@AA
+/anatomy & histology@/anatomía & histología@/anatomia & histologia@AH
+/abnormalities@/anomalías@/anormalidades@AB
+/antagonists & inhibitors@/antagonistas & inhibidores@/antagonistas & inibidores@AI
+/biosynthesis@/biosíntesis@/biossíntese@BI
+/surgery@/cirugía@/cirurgia@SU
+/cytology@/citología@/citologia@CY
+/classification@/clasificación@/classificação@CL
+/complications@/complicaciones@/complicações@CO
+/congenital@/congénito@/congênito@CN
+/growth & development@/crecimiento & desarrollo@/crescimento & desenvolvimento@GD
+/deficiency@/deficiencia@/deficiência@DF
+/diagnosis@/diagnóstico@/diagnóstico@DI
+/diet therapy@/dietoterapia@/dietoterapia@DH
+/economics@/economía@/economia@EC
+/education@/educación@/educação@ED
+/adverse effects@/efectos adversos@/efeitos adversos@AE
+/drug effects@/efectos de los fármacos@/efeitos dos fármacos@DE
+/radiation effects@/efectos de la radiación@/efeitos da radiação@RE
+/embryology@/embriología@/embriologia@EM
+/nursing@/enfermería@/enfermagem@NU
+/poisoning@/envenenamiento@/envenenamento@PO
+/enzymology@/enzimología@/enzimologia@EN
+/etiology@/etiología@/etiologia@ET
+/ethnology@/etnología@/etnologia@EH
+/physiology@/fisiología@/fisiologia@PH
+/physiopathology@/fisiopatología@/fisiopatologia@PP
+/genetics@/genética@/genética@GE
+/history@/historia@/história@HI
+/chemically induced@/inducido químicamente@/induzido quimicamente@CI
+/innervation@/inervación@/inervação@IR
+/immunology@/inmunología@/imunologia@IM
+/instrumentation@/instrumentación@/instrumentação@IS
+/blood supply@/irrigación sanguínea@/irrigação sanguínea@BS
+/legislation & jurisprudence@/legislación & jurisprudencia@/legislação & jurisprudência@LJ
+/injuries@/lesiones@/lesões@IN
+/cerebrospinal fluid@/líquido cefalorraquídeo@/líquido cefalorraquidiano@CF
+/metabolism@/metabolismo@/metabolismo@ME
+/methods@/métodos@/métodos@MT
+/microbiology@/microbiología@/microbiologia@MI
+/mortality@/mortalidad@/mortalidade@MO
+/standards@/normas@/normas@ST
+/organization & administration@/organización & administración@/organização & administração@OG
+/urine@/orina@/urina@UR
+/parasitology@/parasitología@/parasitologia@PS
+/pathogenicity@/patogenicidad@/patogenicidade@PY
+/pathology@/patología@/patologia@PA
+/prevention & control@/prevención & control@/prevenção & controle@PC
+/supply & distribution@/provisión & distribución@/provisão & distribuição@SD
+/psychology@/psicología@/psicologia@PX
+/drug therapy@/tratamiento farmacológico@/tratamento farmacológico@DT
+/radiotherapy@/radioterapia@/radioterapia@RT
+/manpower@/recursos humanos@/recursos humanos@MA
+/rehabilitation@/rehabilitación@/reabilitação@RH
+/blood@/sangre@/sangue@BL
+/secretion@/secreción@/secreção@SE
+/secondary@/secundario@/secundário@SC
+/chemical synthesis@/síntesis química@/síntese química@CS
+/trends@/tendencias@/tendências@TD
+/therapy@/terapia@/terapia@TH
+/toxicity@/toxicidad@/toxicidade@TO
+/transmission@/transmisión@/transmissão@TM
+/transplantation@/trasplante@/transplante@TR
+/ultrastructure@/ultraestructura@/ultraestrutura@UL
+/therapeutic use@/uso terapéutico@/uso terapêutico@TU
+/utilization@/utilización@/utilização@UT
+/veterinary@/veterinaria@/veterinária@VE
+/pharmacology@/farmacología@/farmacologia@PD
+/pharmacokinetics@/farmacocinética@/farmacocinética@PK
+/epidemiology@/epidemiología@/epidemiologia@EP
+/policies@/políticas@/políticas@PL
+/statistics & numerical data@/estadística & datos numéricos@/estatística & dados numéricos@SN
+/chemistry@/química@/química@CH
+/virology@/virología@/virologia@VI
+/agonists@/agonistas@/agonistas@AG
+/ethics@/ética@/ética@ES
+/diagnostic imaging@/diagnóstico por imagen@/diagnóstico por imagem@DG

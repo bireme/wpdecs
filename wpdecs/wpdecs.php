@@ -2,7 +2,7 @@
 /*
 Plugin Name: WPDeCS
 Description: The WPDeCS consumes the DeCS service and append into posts or pages in your WP.
-Version: 0.1
+Version: 0.4
 Author: Moacir Moda - BIREME/OPAS/OMS
 Author URI: http://github.com/moacirmoda
 */
