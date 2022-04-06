@@ -129,3 +129,15 @@ function decs_metabox_data($post_id, $post) {
     
     return $post_id;
 }
+
+// admin custom css
+add_action('admin_head', 'wpdecs_custom_css');
+function wpdecs_custom_css() {
+    echo '<style>
+        #decs_id .tagchecklist {
+            display: flex;
+            flex-direction: column;
+            margin-left: 2rem;
+        }
+    </style>';
+}

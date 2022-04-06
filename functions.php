@@ -33,7 +33,7 @@ function get_descriptors_by_words($words, $lang = ""){
         $QUALIFIER_LIST = $QUALIFIER_LIST[$lang];
     }
 
-    $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang );
+    $xmlFile = get_descriptors_from_decs( 'https://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang );
     $xmlTree = $xmlFile->xpath("/decsvmx/decsws_response");
 
     // print 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?words=' . urlencode($words) . "&lang=" . $lang;
@@ -107,7 +107,7 @@ function get_descriptors_by_words($words, $lang = ""){
 
 function get_descriptors_lang_by_tree_id($id) {
 
-    $xmlFile = get_descriptors_from_decs( 'http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?tree_id=' . urlencode($id) );
+    $xmlFile = get_descriptors_from_decs( 'https://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?tree_id=' . urlencode($id) );
     $xmlTree = $xmlFile->xpath("/decsvmx/decsws_response/record_list");
 
     $result = array();
