@@ -48,7 +48,7 @@
                         $("#result_example .select_term").attr('onclick', "javascript: select_term('"+content.tree_id+"', '"+item+"', "+content.mfn+");");
 
                         if(is_leaf) {
-                            var leaf_html = " <img src='<?= plugin_dir_url(__FILE__); ?>/img/leaf.png' alt='Este termo é uma folha da árvore.'>"
+                            var leaf_html = " <img src='<?php echo plugin_dir_url(__FILE__); ?>/img/leaf.png' alt='Este termo é uma folha da árvore.'>"
                             $("#result_example_title").html(item + leaf_html);
                         } else {
                             $("#result_example_title").html(item);
@@ -242,7 +242,6 @@
     </select>
     <input type="button" class="button" id="wpdecs_submit" value="<?php _e('Search', 'wpdecs'); ?>">
 
-
     <div class="words">
 
         <table id="search_selecteds">
@@ -253,38 +252,39 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><div class="tagchecklist" id="selected_terms">
-                        <?php $count = 0; foreach($wpdecs_terms as $id => $term): ?>
-                            <span>
+                    <td>
+                        <div class="tagchecklist" id="selected_terms">
+                            <?php if ( $wpdecs_terms ) : ?>
+                                <?php $count = 0; foreach($wpdecs_terms as $id => $term) : ?>
+                                    <span>
 
-                                <a id="wpdecs_selected_<?= $count ?>" class="ntdelbutton" onclick="javascript: remove_selected('wpdecs_selected_<?= $count ?>');">x</a> <?= $term['term'] ?>
-                                <?php if(isset($term['qualifier'])) {
-                                    // printing qualifiers, if exist
-                                    print "(" . join("/", $term['qualifier']) . ")";
-                                }?>
+                                        <a id="wpdecs_selected_<?php echo $count ?>" class="ntdelbutton" onclick="javascript: remove_selected('wpdecs_selected_<?php echo $count ?>');">x</a> <?php echo $term['term'] ?>
+                                        <?php if(isset($term['qualifier'])) {
+                                            // printing qualifiers, if exist
+                                            print "(" . join("/", $term['qualifier']) . ")";
+                                        }?>
 
-                                <input type="hidden" name="wpdecs_terms[<?= $id ?>][term]" value="<?= $term['term'] ?>">
-                                <input type="hidden" name="wpdecs_terms[<?= $id ?>][mfn]" value="<?= $term['mfn'] ?>">
+                                        <input type="hidden" name="wpdecs_terms[<?php echo $id ?>][term]" value="<?php echo $term['term'] ?>">
+                                        <input type="hidden" name="wpdecs_terms[<?php echo $id ?>][mfn]" value="<?php echo $term['mfn'] ?>">
 
-                                <!-- qualifiers -->
-                                <?php if(isset($term['qualifier'])) { foreach($term['qualifier'] as $ql) : ?>
-                                    <input type="hidden" name="wpdecs_terms[<?= $id ?>][qualifier][]" value="<?= $ql ?>">
-                                <?php endforeach; } ?>
-                                <?php if(isset($term['qid'])) { foreach($term['qid'] as $ql => $qid) : ?>
-                                    <input type="hidden" name="wpdecs_terms[<?= $id ?>][qid][<?= $ql ?>]" value="<?= $qid ?>">
-                                <?php endforeach; } ?>
+                                        <!-- qualifiers -->
+                                        <?php if(isset($term['qualifier'])) { foreach($term['qualifier'] as $ql) : ?>
+                                            <input type="hidden" name="wpdecs_terms[<?php echo $id ?>][qualifier][]" value="<?php echo $ql ?>">
+                                        <?php endforeach; } ?>
+                                        <?php if(isset($term['qid'])) { foreach($term['qid'] as $ql => $qid) : ?>
+                                            <input type="hidden" name="wpdecs_terms[<?php echo $id ?>][qid][<?php echo $ql ?>]" value="<?php echo $qid ?>">
+                                        <?php endforeach; } ?>
 
-                                <!-- langs -->
-                                <?php if(isset($term['qualifier'])) { foreach($term['lang'] as $key => $value) : ?>
-                                    <input type="hidden" name="wpdecs_terms[<?= $id ?>][lang][<?= $key ?>]" value="<?= $value ?>">
-                                <?php endforeach; } ?>
+                                        <!-- langs -->
+                                        <?php if(isset($term['qualifier'])) { foreach($term['lang'] as $key => $value) : ?>
+                                            <input type="hidden" name="wpdecs_terms[<?php echo $id ?>][lang][<?php echo $key ?>]" value="<?php echo $value ?>">
+                                        <?php endforeach; } ?>
 
-
-                            </span>
-                        <?php $count++; endforeach; ?>
-
-
-                    </div></td>
+                                    </span>
+                                <?php $count++; endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
