@@ -1,4 +1,5 @@
 <?php $wpdecs_terms = (array)get_post_meta($post_id, 'wpdecs_terms', true); ?>
+<?php $wpdecs_terms = array_filter($wpdecs_terms); ?>
 <?php // echo "<pre>"; print_r($wpdecs_terms); echo "</pre>"; die(); ?>
 
 <script>
@@ -254,7 +255,7 @@
                 <tr>
                     <td>
                         <div class="tagchecklist" id="selected_terms">
-                            <?php if ( $wpdecs_terms ) : ?>
+                            <?php if ( count($wpdecs_terms) > 0 ) : ?>
                                 <?php $count = 0; foreach($wpdecs_terms as $id => $term) : ?>
                                     <span>
 
