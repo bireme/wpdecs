@@ -1,5 +1,5 @@
-<?php $wpdecs_terms = get_post_meta($post_id, 'wpdecs_terms', true); ?>
-<?php //var_dump($wpdecs_terms); ?>
+<?php $wpdecs_terms = (array)get_post_meta($post_id, 'wpdecs_terms', true); ?>
+<?php // echo "<pre>"; print_r($wpdecs_terms); echo "</pre>"; die(); ?>
 
 <script>
     var webservice_url = "<?php print WPDECS_URL; ?>/webservice.php";
@@ -30,7 +30,7 @@
                     $("#search_results tbody").empty();
                     $("#search_results tbody").hide();
 
-                    var link_externo = "http://decs.bvs.br/cgi-bin/wxis1660.exe/?IsisScript=../cgi-bin/decsserver/decsserver.xis&path_database=/home/decs2014/www/bases/&path_cgibin=/home/decs2014/www/cgi-bin/decsserver/&path_data=/decsserver/&temp_dir=/tmp&debug=&clock=&client=&search_language=p&interface_language=p&navigation_bar=Y&format=LONG&show_tree_number=F&list_size=200&from=1&count=5&total=7&no_frame=T&task=hierarchic&previous_task=list_terms&previous_page=list_terms&mfn_tree=";
+                    var link_externo = "https://decs.bvs.br/cgi-bin/wxis1660.exe/?IsisScript=../cgi-bin/decsserver/decsserver.xis&path_database=/home/decs2014/www/bases/&path_cgibin=/home/decs2014/www/cgi-bin/decsserver/&path_data=/decsserver/&temp_dir=/tmp&debug=&clock=&client=&search_language=p&interface_language=p&navigation_bar=Y&format=LONG&show_tree_number=F&list_size=200&from=1&count=5&total=7&no_frame=T&task=hierarchic&previous_task=list_terms&previous_page=list_terms&mfn_tree=";
 
                     var count=0;
                     for(item in data.descriptors) {
@@ -182,8 +182,8 @@
     function show_qualifiers(id) {
         $("#"+id).toggle();
     }
-
 </script>
+
 <style>
     /* hiding decs term box */
     label[for="decs_id-hide"], #decsdiv {
